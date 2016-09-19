@@ -1,0 +1,42 @@
+version: '2'
+services:
+    data:
+        build: dockerfiles/data
+        volumes:
+            - ./src:/var/www/html
+
+    web:
+        build: dockerfiles/web
+        ports:
+            - "80:80"
+        links:
+            - db
+    #        - memcached
+        volumes_from:
+            - data
+
+    db:  
+        build: dockerfiles/db
+        volumes_from:
+            - data
+        ports:
+            - "3306:3306"
+
+    mysql:
+        image: mysql:5.5
+        links:
+            - db
+        entrypoint: mysql 
+        command: --host=db --user=root --password=root wordpress
+
+    #memcached:
+    #    image: memcached
+
+    #memcachedadmin:
+    #    image: php:5.5-apache
+    #    volumes:
+    #        - memcachedadmin:/var/www/html
+    #    ports:
+    #        - "80"
+    #    links:
+    #        - memcached
