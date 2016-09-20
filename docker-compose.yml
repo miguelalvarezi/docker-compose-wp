@@ -5,6 +5,20 @@ services:
         volumes:
             - ./src:/var/www/html
 
+    php:  
+        build: dockerfiles/php
+        volumes_from:
+            - data
+        entrypoint: php
+        command: "-"
+
+    composer:  
+        build: dockerfiles/php
+        volumes_from:
+            - data
+        entrypoint: composer
+        command: "-"
+
     web:
         build: dockerfiles/web
         ports:
