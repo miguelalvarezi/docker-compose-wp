@@ -7,7 +7,7 @@ WordPress development environment based on Docker Compose.
 
 * Download your WP project to a newly created src directory. For example:
 
-`# git clone git@github.com:you/your-repo.git src
+`# git clone git@github.com:you/your-repo.git src`
 
 * Start containers:
 
