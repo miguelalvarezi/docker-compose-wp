@@ -3,11 +3,11 @@ WordPress development environment based on Docker Compose.
 
 ## How to use
 
-* Create src directory:
+* Clone this repository and change into it's directory.
 
-`# mkdir src`
+* Download your WP project to a newly created src directory. For example:
 
-* Download your WP project to src directory.
+`# git clone git@github.com:you/your-repo.git src
 
 * Start containers:
 
