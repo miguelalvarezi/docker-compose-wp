@@ -11,6 +11,8 @@ services:
             - data
         entrypoint: php
         command: "-"
+        links:
+            - web
 
     composer:  
         build: dockerfiles/php
