@@ -54,6 +54,22 @@ services:
         entrypoint: mysql 
         command: --host=db --user=root --password=root wordpress
 
+    node:  
+        build: dockerfiles/node
+        volumes_from:
+            - data
+        working_dir: /var/www/html
+
+    gulp:  
+        build: dockerfiles/node
+        volumes_from:
+            - data
+        working_dir: /var/www/html
+        environment:
+            DISABLE_NOTIFIER: 'true'
+        entrypoint: ["gulp"]
+        command: "default"
+
     #memcached:
     #    image: memcached
 
