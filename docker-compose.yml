@@ -19,6 +19,15 @@ services:
         entrypoint: composer
         command: "-"
 
+    wpcli:  
+        build: dockerfiles/php
+        volumes_from:
+            - data
+        entrypoint: wp --allow-root
+        command: "help"
+        links:
+            - web
+
     web:
         build: dockerfiles/web
         ports:
