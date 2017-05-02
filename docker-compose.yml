@@ -5,21 +5,21 @@ services:
         volumes:
             - ./src:/var/www/html
 
-    php:  
+    php:
         build: dockerfiles/php
         volumes_from:
             - data
         entrypoint: php
         command: "-"
 
-    composer:  
+    composer:
         build: dockerfiles/php
         volumes_from:
             - data
         entrypoint: composer
         command: "-"
 
-    wpcli:  
+    wpcli:
         build: dockerfiles/php
         volumes_from:
             - data
@@ -38,7 +38,7 @@ services:
         volumes_from:
             - data
 
-    db:  
+    db:
         build: dockerfiles/db
         volumes_from:
             - data
@@ -49,8 +49,32 @@ services:
         image: mysql:5.5
         links:
             - db
-        entrypoint: mysql 
+        entrypoint: mysql
         command: --host=db --user=root --password=root wordpress
+
+    node:
+        build: dockerfiles/node
+        volumes_from:
+            - data
+        working_dir: /var/www/html
+
+    npm:
+        build: dockerfiles/node
+        volumes_from:
+            - data
+        working_dir: /var/www/html
+        entrypoint: ["npm"]
+        command: "default"
+
+    gulp:
+        build: dockerfiles/node
+        volumes_from:
+            - data
+        working_dir: /var/www/html
+        environment:
+            DISABLE_NOTIFIER: 'true'
+        entrypoint: ["gulp"]
+        command: "default"
 
     #memcached:
     #    image: memcached
