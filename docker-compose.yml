@@ -19,6 +19,15 @@ services:
         entrypoint: composer
         command: "-"
 
+    wp:
+        build: dockerfiles/php
+        links:
+            - db
+    #        - memcached
+        volumes_from:
+            - data
+        entrypoint: ["wp", "--allow-root"]
+
     web:
         build: dockerfiles/web
         ports:
