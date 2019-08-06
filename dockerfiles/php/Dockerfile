@@ -1,11 +1,16 @@
-FROM php:5.6-cli
+FROM php:7.3-apache-buster
 
-COPY config/php.ini /usr/local/etc/php/
+# Use the default production configuration
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-RUN apt-get update && apt-get install -y zlib1g-dev \
+# TODO: xdebug config in this php.ini should be 
+# COPY config/php.ini /usr/local/etc/php/
+
+RUN apt-get update && apt-get install -y zlib1g-dev libzip-dev \
 		&& apt-get install -y git \
-		&& pecl install xdebug-2.5.5 \
-		&& docker-php-ext-install zip mysql mysqli pdo pdo_mysql mbstring
+		&& pecl install xdebug-2.7.2 \
+        && docker-php-ext-enable xdebug \
+		&& docker-php-ext-install zip mysqli pdo pdo_mysql mbstring
 
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
